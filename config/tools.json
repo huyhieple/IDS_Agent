@@ -1,0 +1,96 @@
+[
+  {
+    "name": "data_extraction",
+    "description": "Load traffic features from a CSV file for a specific line.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "file_path": {
+          "type": "string",
+          "description": "Path to the CSV file."
+        },
+        "line_number": {
+          "type": "number",
+          "description": "Line number to extract."
+        }
+      },
+      "required": ["file_path", "line_number"]
+    }
+  },
+  {
+    "name": "data_preprocessing",
+    "description": "Preprocess raw traffic data for classification.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "raw_data": {
+          "type": "object",
+          "description": "Raw traffic data from load_data_line."
+        }
+      },
+      "required": ["raw_data"]
+    }
+  },
+  {
+    "name": "classification",
+    "description": "Classify traffic data using a specified classifier.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "classifier_name": {
+          "type": "string",
+          "enum": ["RandomForest", "SVM", "MLP", "DecisionTree", "KNN", "LogisticRegression"],
+          "description": "Name of the classifier."
+        },
+        "preprocessed_features": {
+          "type": "object",
+          "description": "Preprocessed traffic features."
+        }
+      },
+      "required": ["classifier_name", "preprocessed_features"]
+    }
+  },
+  {
+    "name": "memory_retrieve",
+    "description": "Retrieve previous classification results for comparison.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "classifier_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of classifier names."
+        },
+        "classification_results": {
+          "type": "object",
+          "description": "Current classification results."
+        }
+      },
+      "required": ["classifier_names", "classification_results"]
+    }
+  },
+  {
+    "name": "aggregation",
+    "description": "Aggregate classification results from multiple classifiers to produce a final decision with balanced sensitivity.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "classification_results": {
+          "type": "object",
+          "description": "Results from classifiers, with classifier names as keys and labels/confidence as values."
+        },
+        "memory": {
+          "type": "object",
+          "description": "Retrieved memory containing previous classification results."
+        },
+        "line_number": {
+          "type": "number",
+          "description": "Line number of the traffic data being analyzed."
+        }
+      },
+      "required": ["classification_results", "memory", "line_number"]
+    }
+  }
+]
