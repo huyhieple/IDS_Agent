@@ -48,13 +48,13 @@ async def data_preprocessing(raw_data: dict):
             logger.info("Mapped 'Connection Type' column")
 
         selected_features = [
-            'Src Port', 'Dst Port', 'Protocol', 'Flow IAT Mean', 'Flow IAT Max',
-            'Flow IAT Min', 'Fwd IAT Mean', 'Fwd IAT Max', 'Fwd IAT Min',
-            'SYN Flag Count', 'RST Flag Count', 'Down/Up Ratio',
-            'Subflow Fwd Packets', 'FWD Init Win Bytes', 'Fwd Seg Size Min',
-            'Idle Mean', 'Idle Std', 'Idle Max', 'Idle Min',
-            'Flow Bytes/s', 'Connection Type'
+                 'Src Port', 'Dst Port', 'Protocol', 'Flow IAT Mean', 'Flow IAT Max',
+                 'Flow IAT Min', 'Fwd IAT Mean', 'Fwd IAT Max', 'Fwd IAT Min',
+                 'SYN Flag Count', 'RST Flag Count', 'Down/Up Ratio',
+                 'Subflow Fwd Packets', 'FWD Init Win Bytes', 'Fwd Seg Size Min',
+                 'Idle Mean', 'Idle Std', 'Idle Max', 'Idle Min', 'Connection Type'
         ]
+
         selected_features = [f for f in selected_features if f in df.columns]
         if not selected_features:
             raise ValueError("No selected features available in data")
